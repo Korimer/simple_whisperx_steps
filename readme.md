@@ -62,7 +62,23 @@ Once all of this is done, you can finally download the model. This can be done b
 ```
 python -c "import pyannote.audio; import torch; pyannote.audio.Pipeline.from_pretrained('pyannote/speaker-diarization-3.1', token='<YOUR_HUGGINGFACE_TOKEN>').to(torch.device('cuda' if torch.cuda.is_available() else 'cpu'))"
 ```
-The reason this command is so verbose is because there exists different diarization models for different hardware. The two most common means of running these models is either via cuda (which is far faster, but requires an NVIDIA GPU), or via cpu (which is far slower, but works on any device at all). The command above, which can be copy-pasted, downloads a gpu model if cuda is available, and a cpu model otherwise.
+The reason this command is so verbose is because there exists different diarization models for different hardware. The two most common means of running these models is either via cuda (which is far faster, but requires an NVIDIA GPU), or via cpu (which is far slower, but works on any device at all). The command above, which can be copy-pasted, downloads a cuda model if cuda is available, and a cpu model otherwise.
+
+Now that everything is downloaded, to actually diarize the results of your transcription, include the following arguments in your command: `--diarize --min_speakers <NUMBER> --max_speakers <NUMBER>`, replacing <NUMBER> with the respective minimum/maximum number of speakers in a clip. These should be somewhat self-explanatory - min_speakers is the fewest number of people who might speak in the audio, and max_speakers is the max (e.g. if you know at least two different people speak, set min_speakers to 2). If you know exactly how many people will speak in the audio, you can set min_speakers and max_speakers to be the same number.
+
+## Putting it All Together
+This is a simpler segment to provide some example commands.
+
+Say you wish to transcribe a meeting to a simple text document so that you can send the textual transcription to a friend. The meeting has 10 people in it, but you're not certain that everyone speaks at least once. A good command to transcribe this could be...
+```whisperx "Meeting.mp4" --output_format "txt" --diarize --min_speakers 4 --max_speakers 10```
+
+Say you're transcribing an interview between two people, and you intend to use the transcription to caption the interview. Since these will be professional captions, accuracy is important. A good command to transcribe this could be...
+```whisperx "Interview.mp4" --output_format "srt" --highlight_words True --best_of 3 --model "large-v3"```
+
+Say you're transcribing an extremely long segment of audio, and want to check in regularly to see how much progess has been made on the transcription. You're running it on a good CPU, so you know you have 16+ threads. A good command to transcribe this could be...
+```whisperx "LongAudio.mp3" --output_format "all" --language "en" --threads 12 --verbose False --print_progress True```
+
+As you can see, there's no limit to how many arguments you include in a whisperx command. As long as you match the format as demonstrated above, you could specify as many arguments as you want. (And in any order, too. Don't worry about whether `--threads` comes before `--verbose` or anything like that.) In fact, for the purpose of customizing a transcription to best suit your needs, I'd strongly encourage you to mix and match arguments!
 
 ## Common problems: 
 > UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, do those steps only if you trust the source of the checkpoint
