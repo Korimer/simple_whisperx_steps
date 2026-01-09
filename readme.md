@@ -69,17 +69,23 @@ Now that everything is downloaded, to actually diarize the results of your trans
 ## Putting it All Together
 This is a simpler segment to provide some example commands.
 
-Say you wish to transcribe a meeting to a simple text document so that you can send the textual transcription to a friend. The meeting has 10 people in it, but you're not certain that everyone speaks at least once. A good command to transcribe this could be...
+Say you wish to transcribe a meeting to a simple text document so that you can send the textual transcription to a friend. The meeting has 10 people in it, but you're not certain that everyone speaks at least once. A good command to transcribe this could be...python -c "import pyannote.audio; import torch; pyannote.audio.Pipeline.from_pretrained('pyannote/speaker-diarization-3.1', token='<YOUR_HUGGINGFACE_TOKEN>').to(torch.device('cuda' if torch.cuda.is_available() else 'cpu'))"
 
-```whisperx "Meeting.mp4" --output_format "txt" --diarize --min_speakers 4 --max_speakers 10```
+```
+whisperx "Meeting.mp4" --output_format "txt" --diarize --min_speakers 4 --max_speakers 10
+```
+--
 
 Say you're transcribing an interview between two people, and you intend to use the transcription to caption the interview. Since these will be professional captions, accuracy is important. A good command to transcribe this could be...
-
-```whisperx "Interview.mp4" --output_format "srt" --highlight_words True --best_of 3 --model "large-v3"```
+```
+whisperx "Interview.mp4" --output_format "srt" --highlight_words True --best_of 3 --model "large-v3"
+```
+--
 
 Say you're transcribing an extremely long segment of audio, and want to check in regularly to see how much progess has been made on the transcription. You're running it on a good CPU, so you know you have 16+ threads. A good command to transcribe this could be...
-
-```whisperx "LongAudio.mp3" --output_format "all" --language "en" --threads 12 --verbose False --print_progress True```
+```
+whisperx "LongAudio.mp3" --output_format "all" --language "en" --threads 12 --verbose False --print_progress True
+```
 
 As you can see, there's no limit to how many arguments you include in a whisperx command. As long as you match the format as demonstrated above, you could specify as many arguments as you want. (And in any order, too. Don't worry about whether `--threads` comes before `--verbose` or anything like that.) In fact, for the purpose of customizing a transcription to best suit your needs, I'd strongly encourage you to mix and match arguments!
 
@@ -88,9 +94,11 @@ As you can see, there's no limit to how many arguments you include in a whisperx
 
 Set the `TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD` environment variable to `”true”`.
 How specifically you do this varies by terminal - but most commonly, this would be…
+
 - On PowerShell, typing `$env:TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=”true”`
 - On Linux/Mac, typing `export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=true`
 - On Command Prompt/Cmd, typing `set TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=true`
+
 You can confirm that the above worked by typing `echo $TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD`. If this prints “true”, you’re good. If nothing happens, the environment variable likely wasn’t set - figure out what terminal you’re running, and google how to set environment variables from it.
 
 > Requested float16 compute type, but the target device or backend do not support efficient float16 computation.
