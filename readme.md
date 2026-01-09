@@ -6,9 +6,8 @@ Several of the commands in this process need to be executed from specific folder
 - - For example, if you’re in `”Documents/Homework”`, `cd HW1` will take you to `”Documents/Homework/HW1”` 
 - Typing `cd ..` will change your location from the current folder, to the folder that contains the current folder.
 - - For example, if you’re in `”Documents/Homework/HW1”`, `cd ..` will take you to `”Documents/Homework”`.
-- Typing `ls` will list all files and folders within the current folder. This can help inform what to type following `cd`!
-- - For example, typing `ls` in `”Documents/Homework”` might list
-- - - HW1     HW2     HW3    HW4    FINAL_PROJECT
+- Typing `ls` will list all files and folders within the current folder. This can help inform what to type following `cd`
+- - For example, typing `ls` in `”Documents/Homework”` might list `HW1     HW2     HW3    HW4    FINAL_PROJECT`
 
 ## Step 1: Downloading Whisperx
 You’ll need Python 3.12 installed for this. If you don’t already have python installed, install it. This can be done through several means. The most general answer is to visit https://www.python.org/downloads/release/python-31212/.
