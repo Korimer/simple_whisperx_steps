@@ -60,7 +60,8 @@ Finally, you'll need to visit https://huggingface.co/pyannote/speaker-diarizatio
 
 Once all of this is done, you can finally download the model. This can be done by typing, in a terminal,
 ```
-python -c import pyannote.audio; import torch; pyannote.audio.Pipeline.from_pretrained("pyannote/speaker-diarization-3.1", <ORI FIX PARAM NAME>="<YOUR_HUGGINGFACE_TOKEN>").to(torch.device("gpu" if torch.cuda.is_available() else "cpu"))
+python -c "import pyannote.audio; import torch; pyannote.audio.Pipeline.from_pretrained('pyannote/speaker-diarization-3.1', token='<YOUR_HUGGINGFACE_TOKEN>').to(torch.device('gpu' if torch.cuda.is_availa\
+ble() else 'cpu')))"
 ```
 The reason this command is so verbose is because there exists different diarization models for different hardware. The two most common means of running these models is either via cuda (which is far faster, but requires an NVIDIA GPU), or via cpu (which is far slower, but works on any device at all). The command above, which can be copy-pasted, downloads a gpu model if cuda is available, and a cpu model otherwise.
 
