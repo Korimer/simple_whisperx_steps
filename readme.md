@@ -56,14 +56,22 @@ Diarization is a formal term for telling speakers apart. While this is an incred
 
 Next, you need to create an access token. This can be done via the following guide: https://huggingface.co/docs/hub/en/security-tokens. It is very important that when given the option, you check the check box that reads "Read access to contents of all public gated repos you can access".
 
-## Common problems:
+Finally, you'll need to visit https://huggingface.co/pyannote/speaker-diarization-3.1, and accept the given terms in order to be able to access the repository.
+
+Once all of this is done, you can finally download the model. This can be done by typing, in a terminal,
+```
+python -c import pyannote.audio; import torch; pyannote.audio.Pipeline.from_pretrained("pyannote/speaker-diarization-3.1", <ORI FIX PARAM NAME>="<YOUR_HUGGINGFACE_TOKEN>").to(torch.device("gpu" if torch.cuda.is_available() else "cpu"))
+```
+The reason this command is so verbose is because there exists different diarization models for different hardware. The two most common means of running these models is either via cuda (which is far faster, but requires an NVIDIA GPU), or via cpu (which is far slower, but works on any device at all). The command above, which can be copy-pasted, downloads a gpu model if cuda is available, and a cpu model otherwise.
+
+## Common problems: 
 > UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, do those steps only if you trust the source of the checkpoint
 
 Set the `TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD` environment variable to `”true”`.
 How specifically you do this varies by terminal - but most commonly, this would be…
-On PowerShell, typing `$env:TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=”true”`
-On Linux/Mac, typing `export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=true`
-On Command Prompt/Cmd, typing `set TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=true`
+- On PowerShell, typing `$env:TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=”true”`
+- On Linux/Mac, typing `export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=true`
+- On Command Prompt/Cmd, typing `set TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=true`
 You can confirm that the above worked by typing `echo $TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD`. If this prints “true”, you’re good. If nothing happens, the environment variable likely wasn’t set - figure out what terminal you’re running, and google how to set environment variables from it.
 
 > Requested float16 compute type, but the target device or backend do not support efficient float16 computation.
