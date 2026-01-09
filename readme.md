@@ -19,9 +19,14 @@ Now that you have Python installed and working, simply type `pip install whisper
 Once that’s done, type `whisperx` in your terminal, hit enter, and if you do not get an error message (but do get a large amount of description text), you are good to go.
 
 ## Step 2: Downloading Models
-WhisperX utilizes different “models” - precomputed datasets that inform what sounds correspond to what words. In short, they’re the data that informs the computer on how to transcribe. If you don’t care about running these models offline, you may skip this step.
+Whisperx utilizes different “models” - precomputed datasets that inform what sounds correspond to what words. In short, they’re the data that informs the computer on how to transcribe. If you don’t care about running these models offline, you may skip this step.
+First, visit https://huggingface.co/collections/Systran/faster-whisper and pick a model to download. For best results, I'd suggest faster-whisper-large-v3. On a weaker computer, I'd instead reccomend faster-whisper-small. On an extremely weak system, such as a personal laptop, go with faster-whisper tiny. However, note that the smaller the model you choose is, the less accurate the results are. The trade-off is, of course, that larger models demand far more processing power to utilize.
+Once you have selected the model you want to use, note its full name. (Eg, "Systran/faster-whisper-large-v3" rather than "faster-whisper-large-v3""). Then, in a terminal, run the following command.
+  `python -c "import huggingface_hub; huggingface_hub.hf_hub_download(repo_id='<FULL_MODEL_NAME>',filename='model.bin')`
+Note that in the above example, you are expected to replace `<FULL_MODEL_NAME>` with the name mentioned above. The resulting command should not have `<``>` brackets; those are only to denote what you're supposed to replace.
+Once this command completes successfully, the model is downloaded for good. You will not need to connect to the internet to utilize the model you downloaded - any transcriptions using it can be preformed entirely offline.
 
-## Step 3: Running Whisper
+## Step 3: Running Whisperx
 Open a terminal from the folder containing a file that you want to transcribe. From that terminal, run `whisperx “<FILENAME>”`, where <FILENAME> is the name of the video (or audio) that you wish to transcribe. For example, if you have a video named `Interview.mp4`, you would run `whisperx “Interview.mp4”`.
 Whisperx comes with several means of adjusting how transcription is performed. These come in the form of optional arguments. Put simply, these are keywords, prefaced by `--`, that allow you to specify details of the transcription. For example, if you wish to have the outputted transcription highlight words when they are spoken, you might run `whisperx “Interview.mp4” --highlight_words True`. You can append any number of these arguments to the original command - just ensure that each is separated by a space. Below is a table of potentially relevant arguments.
 | Argument          | Description                                                                                                                                                                                                                                       | Options                                                                                         |
@@ -34,6 +39,8 @@ Whisperx comes with several means of adjusting how transcription is performed. T
 | --verbose         | Whether or not to print extraneous details while it's transcribing audio. True by default, but can be False if you want to see less visual clutter.                                                                                               | True/False                                                                                      |
 | --highlight_words | Whether or not to highlight individual words as audio is being transcribed. False by default. Setting it to True will make resulting files look prettier when used as subtitles, but far more difficult for humans to read.                       | True/False                                                                                      |
 | --print_progress  | Whether or not to log how close to completing a full transcription Whisper is. False by default. If you want to be able to eyeball progress, there's no harm in setting this to True.                                                             | True/False                                                                                      |
+
+## Step 4: Running Diarization
 ## Common problems:
 > UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, do those steps only if you trust the source of the checkpoint
 Set the `TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD` environment variable to `”true”`.
