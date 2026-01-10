@@ -93,7 +93,7 @@ As you can see, there's no limit to how many arguments you include in a whisperx
 ## Common problems: 
 > command not found: python
 
-On some systems, the command may be `python3`, rather than python. You can amend this by either typing  `alias python='python'` and proceeding as dictated in the guide, or type `python3` instead whenever this guide tells you to type a command starting with `python`.
+On some systems, the command may be `python3`, rather than python. You can amend this by either typing  `alias python='python3'` and proceeding as dictated in the guide, or type `python3` instead whenever this guide tells you to type a command starting with `python`.
 
 > command not found: pip
 > 
