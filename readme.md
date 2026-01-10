@@ -101,10 +101,10 @@ Instead of typing `pip install whisperx`, type `python -m pip install whisperx`
 
 > UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, do those steps only if you trust the source of the checkpoint
 
-Set the `TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD` environment variable to `”true”`.
+Set the `TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD` environment variable to `"true"`.
 How specifically you do this varies by terminal - but most commonly, this would be…
 
-- On PowerShell, typing `$env:TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=”true”`
+- On PowerShell, typing `$env:TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD="true"`
 - On Linux/Mac, typing `export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=true`
 - On Command Prompt/Cmd, typing `set TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=true`
 
