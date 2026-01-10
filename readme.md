@@ -91,6 +91,14 @@ whisperx "LongAudio.mp3" --output_format "all" --language "en" --threads 12 --ve
 As you can see, there's no limit to how many arguments you include in a whisperx command. As long as you match the format as demonstrated above, you could specify as many arguments as you want. (And in any order, too. Don't worry about whether `--threads` comes before `--verbose` or anything like that.) In fact, for the purpose of customizing a transcription to best suit your needs, I'd strongly encourage you to mix and match arguments!
 
 ## Common problems: 
+> command not found: python
+
+On some systems, the command may be `python3`, rather than python. You can amend this by either typing  `alias python='python'` and proceeding as dictated in the guide, or type `python3` instead whenever this guide tells you to type a command starting with `python`.
+
+> command not found: pip
+> 
+Instead of typing `pip install whisperx`, type `python -m pip install whisperx`
+
 > UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, do those steps only if you trust the source of the checkpoint
 
 Set the `TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD` environment variable to `”true”`.
