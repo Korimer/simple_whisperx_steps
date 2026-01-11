@@ -26,7 +26,7 @@ First, visit https://huggingface.co/collections/Systran/faster-whisper and pick 
 
 Once you have selected the model you want to use, note its full name. (Eg, "Systran/faster-whisper-large-v3" rather than "faster-whisper-large-v3""). Then, in a terminal, run the following command.
 
-  `python -c "import huggingface_hub; huggingface_hub.hf_hub_download(repo_id='<FULL_MODEL_NAME>',filename='model.bin')`
+  `python -c "import huggingface_hub; huggingface_hub.hf_hub_download(repo_id='<FULL_MODEL_NAME>',filename='model.bin')"`
   
 Note that in the above example, you are expected to replace `<FULL_MODEL_NAME>` with the name mentioned above. The resulting command should not have `<>` brackets; those are only to denote what you're supposed to replace.
 
